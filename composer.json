@@ -1,0 +1,15 @@
+{
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.5",
+        "selective/basepath": "^2.1",
+      "ext-pdo": "*",
+      "ext-json": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.0"
+    },
+    "scripts": {
+        "dev" : "php -S localhost:8080 -t public public/index.php"
+    }
+}

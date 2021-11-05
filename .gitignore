@@ -1,0 +1,16 @@
+./includes/constants.php
+# Project exclude paths
+/vendor/composer/
+/vendor/fig/http-message-util/
+/vendor/nikic/fast-route/
+/vendor/phpstan/phpstan/
+/vendor/psr/container/
+/vendor/psr/http-factory/
+/vendor/psr/http-message/
+/vendor/psr/http-server-handler/
+/vendor/psr/http-server-middleware/
+/vendor/psr/log/
+/vendor/ralouphie/getallheaders/
+/vendor/slim/psr7/
+/vendor/slim/slim/
+/vendor/symfony/polyfill-php80/
