@@ -13,10 +13,8 @@ class DbOperations {
         $data = [];
         try{
             $stmt->execute();
-            foreach ($stmt as $row) {
-                array_push($data, $row);
-            }
-            return $data;
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
         }catch (PDOException $e){
             echo $e;
         }

@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\Factory\AppFactory;
 
-require_once '../src/clientes.php';
+require_once '../src/Clientes/clientes.php';
 require_once '../includes/DBOperations.php';
 require __DIR__ . '/../vendor/autoload.php';
 
