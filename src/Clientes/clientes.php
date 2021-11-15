@@ -13,8 +13,8 @@ class Clientes {
         if($args['idCli'] == null) {
             $responseData = array();
             $result = $this->db->getUserList();
-            $responseData['error'] = false;
-            $responseData['response'] = $result;
+            $responseData['code'] = 200;
+            $responseData['data'] = $result;
             $response->getBody()->write(json_encode($responseData));
             return $response;
         }else{
