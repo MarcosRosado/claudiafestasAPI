@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\Factory\AppFactory;
 
-require_once '../src/Clientes/clientes.php';
+require_once ('../src/clientes/clientes.php');
 require_once '../includes/DBOperations.php';
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -18,9 +18,9 @@ $app->addRoutingMiddleware();
 // This path is used in urlFor().
 $app->add(new BasePathMiddleware($app));
 
-$app->addErrorMiddleware(true, false, false);
+$app->addErrorMiddleware(true, true, true);
 
 
-$app->get('/clientes[/{idCli}]', \Clientes::class.":getClientes");
+$app->get('/clientes[/{idCli}]', Clientes::class.":getClientes");
 
 $app->run();

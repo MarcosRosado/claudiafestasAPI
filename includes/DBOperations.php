@@ -14,6 +14,7 @@ class DbOperations {
         try{
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            print($results);
             return $results;
         }catch (PDOException $e){
             echo $e;

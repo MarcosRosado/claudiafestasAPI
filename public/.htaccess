@@ -4,6 +4,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 <IfModule mod_suphp.c>
     suPHP_ConfigPath ../../../php.ini

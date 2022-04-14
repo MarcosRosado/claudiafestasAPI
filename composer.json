@@ -4,12 +4,17 @@
         "slim/psr7": "^1.5",
         "selective/basepath": "^2.1",
       "ext-pdo": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+        "tuupola/slim-basic-auth": "^3.3",
+        "tuupola/slim-jwt-auth": "^3.6"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.0"
     },
     "scripts": {
-        "dev" : "php -S localhost:8080 -t public public/index.php"
-    }
+        "dev" : "php -S localhost:8080 -t public"
+    },
+  "config": {
+    "process-timeout": 0
+  }
 }
