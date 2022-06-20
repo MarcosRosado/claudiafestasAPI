@@ -1,11 +1,14 @@
 <?php
+
+use App\Controllers\AuthController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\Factory\AppFactory;
 
 require_once ('../src/clientes/clientes.php');
-require_once '../includes/DBOperations.php';
+require_once ('../src/auth/BasicAuth.php');
+
 require __DIR__ . '/../vendor/autoload.php';
 
 
@@ -20,7 +23,12 @@ $app->add(new BasePathMiddleware($app));
 
 $app->addErrorMiddleware(true, true, true);
 
+$app->group('', function () use ($app){
+    $app->get('/clientes[/{idCli}]', Clientes::class.":getClientes");
+    $app->get('/clientes/', Clientes::class.":getAllClientes");
+    $app->get('/clientesTest', Clientes::class.":getAllClientes");
+})->add(basicAuth());
 
-$app->get('/clientes[/{idCli}]', Clientes::class.":getClientes");
+
 
 $app->run();

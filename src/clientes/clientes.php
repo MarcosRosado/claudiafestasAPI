@@ -1,12 +1,15 @@
 <?php
+
+require_once ('../includes/DBOperations.php');
+
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Clientes {
-    private $db;
+class Clientes extends DbOperations {
+
     public function __construct()
     {
-        $this->db = new DbOperations();
+        parent::__construct();
     }
 
     function header_log($data){
@@ -18,10 +21,10 @@ class Clientes {
         header('log_'.$file.'_'.$caller['line'].': '.json_encode($data));
     }
 
-    public function getClientes(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+    function getClientes(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
         if($args['idCli'] != null) {
             $responseData = array();
-            $result = $this->db->getUserList();
+            $result = $this->getUserList();
             $responseData['code'] = 200;
             $responseData['data'] = $result;
             OAuth::class.
@@ -30,5 +33,15 @@ class Clientes {
         }else{
             return $response;
         }
+    }
+
+    function getAllClientes(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+        $responseData = array();
+        $result = $this->getUserList();
+        $responseData['code'] = 200;
+        $responseData['data'] = $result;
+        OAuth::class.
+        $response->getBody()->write(json_encode($responseData));
+        return $response;
     }
 }

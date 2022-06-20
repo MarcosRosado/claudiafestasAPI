@@ -1,20 +1,19 @@
 <?php
-require_once 'ConnectDB.php';
-class DbOperations {
-    private $con;
 
-    function __construct(){
-        $db = new DbConnect();
-        $this->con = $db->connect();
+require_once ('ConnectDB.php');
+
+class DBOperations extends Conexao{
+    public function __construct()
+    {
+        parent::__construct();
     }
 
-    function getUserList(){
-        $stmt = $this->con->prepare('SELECT * FROM Cliente');
+    public function getUserList(){
+        $stmt = $this->pdo->prepare('SELECT * FROM Cliente');
         $data = [];
         try{
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            print($results);
             return $results;
         }catch (PDOException $e){
             echo $e;

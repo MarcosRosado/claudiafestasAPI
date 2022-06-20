@@ -6,7 +6,8 @@
       "ext-pdo": "*",
       "ext-json": "*",
         "tuupola/slim-basic-auth": "^3.3",
-        "tuupola/slim-jwt-auth": "^3.6"
+        "tuupola/slim-jwt-auth": "^3.6",
+      "ext-oauth": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.0"
