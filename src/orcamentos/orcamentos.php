@@ -5,7 +5,7 @@ require_once ('../includes/DBOperations.php');
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Clientes extends DbOperations {
+class Orcamentos extends DbOperations {
 
     public function __construct()
     {
@@ -21,11 +21,11 @@ class Clientes extends DbOperations {
         header('log_'.$file.'_'.$caller['line'].': '.json_encode($data));
     }
 
-    function getCliente(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+    function getOrcamento(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
         if(sizeof($args) > 0) {
-            if ($args['idCli'] != null) {
+            if ($args['idOrc'] != null) {
                 $responseData = array();
-                $result = $this->getUser($args['idCli']);
+                $result = $this->getOrc($args['idOrc']);
                 if(sizeof($result) > 0) {
                     $responseData['data'] = $result;
                     $response->getBody()->write(json_encode($responseData));
@@ -41,11 +41,11 @@ class Clientes extends DbOperations {
         return $response->withStatus(400);
     }
 
-    function getClienteOrcs(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+    function getItensOrcamento(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
         if(sizeof($args) > 0) {
-            if ($args['idCli'] != null) {
+            if ($args['idOrc'] != null) {
                 $responseData = array();
-                $result = $this->getUserOrcs($args['idCli']);
+                $result = $this->getItensOrc($args['idOrc']);
                 if(sizeof($result) > 0) {
                     $responseData['data'] = $result;
                     $response->getBody()->write(json_encode($responseData));
@@ -61,9 +61,29 @@ class Clientes extends DbOperations {
         return $response->withStatus(400);
     }
 
-    function getAllClientes(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+    function getPagamentosOrcamento(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+        if(sizeof($args) > 0) {
+            if ($args['idOrc'] != null) {
+                $responseData = array();
+                $result = $this->getPagamentosOrc($args['idOrc']);
+                if(sizeof($result) > 0) {
+                    $responseData['data'] = $result;
+                    $response->getBody()->write(json_encode($responseData));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+                }
+                else{
+                    return $response->withStatus(204);
+                }
+            } else {
+                return $response->withStatus(404);
+            }
+        }
+        return $response->withStatus(400);
+    }
+
+    function getAllOrcamentos(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
         $responseData = array();
-        $result = $this->getUserList();
+        $result = $this->getAllOrcs();
         $responseData['data'] = $result;
         $response->getBody()->write(json_encode($responseData));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
