@@ -32,6 +32,19 @@ class DBOperations extends Conexao{
         }
     }
 
+    public function getUserSearch($id){
+        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE NOME LIKE :idCli AND stats != 'DELETED' ");
+        $stmt->bindValue(':idCli', '%'.$id.'%');
+        try{
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+
+        }catch (PDOException $e){
+            echo $e;
+        }
+    }
+
     public function getUserOrcs($id){
         $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE Cliente = :idCli AND stats != 'DELETED' ");
         $stmt->bindParam(':idCli', $id);

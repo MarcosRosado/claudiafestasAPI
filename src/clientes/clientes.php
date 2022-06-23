@@ -41,6 +41,26 @@ class Clientes extends DbOperations {
         return $response->withStatus(400);
     }
 
+    function searchCliente(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
+        if(sizeof($args) > 0) {
+            if ($args['idCli'] != null) {
+                $responseData = array();
+                $result = $this->getUserSearch($args['idCli']);
+                if(sizeof($result) > 0) {
+                    $responseData['data'] = $result;
+                    $response->getBody()->write(json_encode($responseData));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+                }
+                else{
+                    return $response->withStatus(204);
+                }
+            } else {
+                return $response->withStatus(404);
+            }
+        }
+        return $response->withStatus(400);
+    }
+
     function getClienteOrcs(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface{
         if(sizeof($args) > 0) {
             if ($args['idCli'] != null) {

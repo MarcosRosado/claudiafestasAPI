@@ -28,6 +28,7 @@ $app->addErrorMiddleware(true, true, true);
 
 $app->group('/clientes/{idCli}', function (RouteCollectorProxy $group){
     $group->get('', Clientes::class.":getCliente");
+    $group->get('/search', Clientes::class.":searchCliente");
     $group->get('/orcamentos[/]', Clientes::class.":getClienteOrcs");
 })->add(basicAuth());
 
