@@ -33,7 +33,7 @@ class DBOperations extends Conexao{
     }
 
     public function getUserSearch($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE NOME LIKE :idCli AND stats != 'DELETED' ORDER BY idCliente DESC LIMIT 50");
+        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE LOWER(NOME)  LIKE LOWER(:idCli) AND stats != 'DELETED' ORDER BY idCliente DESC LIMIT 50");
         $stmt->bindValue(':idCli', '%'.$id.'%');
         try{
             $stmt->execute();
