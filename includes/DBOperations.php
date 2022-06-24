@@ -9,7 +9,7 @@ class DBOperations extends Conexao{
     }
 
     public function getUserList(){
-        $stmt = $this->pdo->prepare('SELECT * FROM Cliente');
+        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE stats <> 'DELETED' AND Cliente.NOME IS NOT NULL AND Cliente.NOME <> '' ORDER BY idCliente DESC LIMIT 50");
         try{
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,7 +20,7 @@ class DBOperations extends Conexao{
     }
 
     public function getUser($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE idCliente = :idCli AND stats != 'DELETED' ");
+        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE idCliente = :idCli AND stats != 'DELETED' ORDER BY idCliente DESC ");
         $stmt->bindParam(':idCli', $id);
         try{
             $stmt->execute();
@@ -33,7 +33,7 @@ class DBOperations extends Conexao{
     }
 
     public function getUserSearch($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE NOME LIKE :idCli AND stats != 'DELETED' ");
+        $stmt = $this->pdo->prepare("SELECT * FROM Cliente WHERE NOME LIKE :idCli AND stats != 'DELETED' ORDER BY idCliente DESC LIMIT 50");
         $stmt->bindValue(':idCli', '%'.$id.'%');
         try{
             $stmt->execute();
@@ -46,7 +46,7 @@ class DBOperations extends Conexao{
     }
 
     public function getUserOrcs($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE Cliente = :idCli AND stats != 'DELETED' ");
+        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE Cliente = :idCli AND stats != 'DELETED' ORDER BY numOrcamento DESC ");
         $stmt->bindParam(':idCli', $id);
         try{
             $stmt->execute();
@@ -59,7 +59,7 @@ class DBOperations extends Conexao{
     }
 
     public function getAllOrcs(){
-        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento");
+        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE stats <> 'DELETED' ORDER BY numOrcamento DESC");
         try{
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,7 +71,7 @@ class DBOperations extends Conexao{
     }
 
     public function getOrc($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE numOrcamento = :numOrc ");
+        $stmt = $this->pdo->prepare("SELECT * FROM Orcamento WHERE numOrcamento = :numOrc AND stats <> 'DELETED' ORDER BY numOrcamento DESC ");
         $stmt->bindParam(':numOrc', $id);
         try{
             $stmt->execute();
@@ -84,7 +84,7 @@ class DBOperations extends Conexao{
     }
 
     public function getItensOrc($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM itensOrcamento WHERE numOrcamento = :numOrc AND stats != 'DELETED' ");
+        $stmt = $this->pdo->prepare("SELECT * FROM itensOrcamento WHERE numOrcamento = :numOrc AND stats != 'DELETED' ORDER BY id DESC ");
         $stmt->bindParam(':numOrc', $id);
         try{
             $stmt->execute();
@@ -97,7 +97,7 @@ class DBOperations extends Conexao{
     }
 
     public function getPagamentosOrc($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM itensPagamento WHERE numOrcamento = :numOrc AND stats != 'DELETED' ");
+        $stmt = $this->pdo->prepare("SELECT * FROM itensPagamento WHERE numOrcamento = :numOrc AND stats != 'DELETED' ORDER BY id DESC ");
         $stmt->bindParam(':numOrc', $id);
         try{
             $stmt->execute();
